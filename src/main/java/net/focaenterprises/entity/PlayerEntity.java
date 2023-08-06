@@ -18,6 +18,9 @@ public class PlayerEntity extends Entity {
 
   @Override
   public void update() {
+    int old_x = x;
+    int old_y = y;
+
     int direction_x = 0;
     int direction_y = 0;
 
@@ -38,6 +41,15 @@ public class PlayerEntity extends Entity {
     }
 
     x += direction_x;
+
+    if (world.getTilemap().isColliding(x, y, 15, 15)) {
+      x = old_x;
+    }
+
     y += direction_y;
+
+    if (world.getTilemap().isColliding(x, y, 15, 15)) {
+      y = old_y;
+    }
   }
 }

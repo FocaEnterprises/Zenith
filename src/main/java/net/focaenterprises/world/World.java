@@ -1,6 +1,7 @@
 package net.focaenterprises.world;
 
 import net.focaenterprises.entity.Entity;
+import net.focaenterprises.world.tilemap.Tilemap;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -9,9 +10,11 @@ import java.util.List;
 
 public class World {
   private List<Entity> entities;
+  private Tilemap tilemap;
 
-  public void initialize() {
-    entities = new ArrayList<>();
+  public void initialize(Tilemap tilemap) {
+    this.entities = new ArrayList<>();
+    this.tilemap = tilemap;
   }
 
   public void update() {
@@ -30,11 +33,16 @@ public class World {
   }
 
   public void render(Graphics graphics) {
+    tilemap.render(graphics);
     entities.forEach(e -> e.render(graphics));
   }
 
   public List<Entity> getEntities() {
     return new ArrayList<>(entities);
+  }
+
+  public Tilemap getTilemap() {
+    return tilemap;
   }
 
   public void addEntity(Entity entity) {
