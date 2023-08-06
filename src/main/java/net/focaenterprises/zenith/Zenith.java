@@ -1,5 +1,8 @@
 package net.focaenterprises.zenith;
 
+import net.focaenterprises.entity.PlayerEntity;
+import net.focaenterprises.world.World;
+import net.focaenterprises.zenith.graphics.Spritesheet;
 import net.focaenterprises.zenith.graphics.Window;
 
 import java.awt.Color;
@@ -13,20 +16,32 @@ import static net.focaenterprises.zenith.graphics.Window.WIDTH;
 
 public class Zenith {
   private final Window window;
+  private final Spritesheet spritesheet;
   private final Loop loop;
+  private final World world;
 
   public Zenith() {
     this.window = new Window();
     this.loop = new Loop(this::update, this::render);
+    this.spritesheet = new Spritesheet("/spritesheet.png");
+    this.world = new World();
   }
 
   public void start() {
+    if(!spritesheet.loadSpritesheet()) {
+      System.out.println("Failed to load spritesheet, shutting down!");
+      System.exit(1);
+    }
+
+    world.initialize();
+    world.addEntity(new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, 16, 16)));
+
     window.show();
     loop.loop();
   }
 
   private void update() {
-
+    world.update();
   }
 
   private void render() {
@@ -39,10 +54,20 @@ public class Zenith {
     layerGraphics.setColor(new Color(141, 141, 141));
     layerGraphics.fillRect(0, 0, WIDTH, HEIGHT);
 
+    world.render(layerGraphics);
+
     uiGraphics.drawImage(layer, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 
     layerGraphics.dispose();
     uiGraphics.dispose();
     bufferStrategy.show();
+  }
+
+  public Spritesheet getSpritesheet() {
+    return spritesheet;
+  }
+
+  public World getWorld() {
+    return world;
   }
 }
