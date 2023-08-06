@@ -1,6 +1,5 @@
 package net.focaenterprises.zenith;
 
-import net.focaenterprises.Loop;
 import net.focaenterprises.zenith.graphics.Window;
 
 import java.awt.Color;
