@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -15,9 +16,9 @@ public class Window {
   private final JFrame frame;
   private final BufferStrategy bufferStrategy;
   private final BufferedImage scaledLayer;
-
+  private final Canvas canvas;
   public Window() {
-    Canvas canvas = new Canvas();
+    canvas = new Canvas();
     canvas.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 
     frame = new JFrame("Zenith");
@@ -46,5 +47,9 @@ public class Window {
 
   public void hide() {
     frame.setVisible(false);
+  }
+
+  public void addKeyListener(KeyListener k) {
+    canvas.addKeyListener(k);
   }
 }

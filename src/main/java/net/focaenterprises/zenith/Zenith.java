@@ -1,6 +1,7 @@
 package net.focaenterprises.zenith;
 
 import net.focaenterprises.entity.PlayerEntity;
+import net.focaenterprises.input.Keyboard;
 import net.focaenterprises.world.World;
 import net.focaenterprises.zenith.graphics.Spritesheet;
 import net.focaenterprises.zenith.graphics.Window;
@@ -19,12 +20,15 @@ public class Zenith {
   private final Spritesheet spritesheet;
   private final Loop loop;
   private final World world;
-
+  private Keyboard keyboard;
+  private PlayerEntity player;
   public Zenith() {
     this.window = new Window();
     this.loop = new Loop(this::update, this::render);
     this.spritesheet = new Spritesheet("/spritesheet.png");
     this.world = new World();
+    this.keyboard = new Keyboard();
+    this.window.addKeyListener(keyboard);
   }
 
   public void start() {
@@ -34,13 +38,17 @@ public class Zenith {
     }
 
     world.initialize();
-    world.addEntity(new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, 16, 16)));
+
+    player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, 16, 16), keyboard);
+
+    world.addEntity(player);
 
     window.show();
     loop.loop();
   }
 
   private void update() {
+    keyboard.poll();
     world.update();
   }
 
