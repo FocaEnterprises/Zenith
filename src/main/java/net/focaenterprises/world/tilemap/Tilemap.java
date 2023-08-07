@@ -42,7 +42,7 @@ public class Tilemap {
         int top_tile = obj_top / tile_size;
         int bottom_tile = obj_bottom / tile_size;
 
-        if (obj_left < 0 || obj_right >= getWidth() * tile_size || obj_top < 0 || obj_right >= getHeight() * tile_size) {
+        if (obj_left < 0 || obj_right >= getWidth() * tile_size || obj_top < 0 || obj_bottom >= getHeight() * tile_size) {
             return true;
         }
 
