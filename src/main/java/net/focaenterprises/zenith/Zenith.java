@@ -16,6 +16,7 @@ import java.awt.image.BufferedImage;
 import static net.focaenterprises.zenith.graphics.Window.HEIGHT;
 import static net.focaenterprises.zenith.graphics.Window.SCALE;
 import static net.focaenterprises.zenith.graphics.Window.WIDTH;
+import static net.focaenterprises.zenith.world.World.TILE_SIZE;
 
 public class Zenith {
   private final Window window;
@@ -31,7 +32,7 @@ public class Zenith {
     this.loop = new Loop(this::update, this::render);
     this.spritesheet = new Spritesheet("/spritesheet.png");
     this.world = new World();
-    this.tilemap = new Tilemap(50, 50, 16);
+    this.tilemap = new Tilemap(50, 50, TILE_SIZE);
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
   }
@@ -44,11 +45,11 @@ public class Zenith {
 
     world.initialize(tilemap);
 
-    TileFactory.newTileType(spritesheet.getSprite(0, 16, 16, 16), false);
-    TileFactory.newTileType(spritesheet.getSprite(16, 16, 16, 16), true);
-    TileFactory.newTileType(spritesheet.getSprite(32, 16, 16, 16), true);
+    TileFactory.newTileType(spritesheet.getSprite(0, 16, TILE_SIZE, TILE_SIZE), false);
+    TileFactory.newTileType(spritesheet.getSprite(16, 16, TILE_SIZE, TILE_SIZE), true);
+    TileFactory.newTileType(spritesheet.getSprite(32, 16, TILE_SIZE, TILE_SIZE), true);
 
-    player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, 16, 16), keyboard);
+    player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, TILE_SIZE, TILE_SIZE), keyboard);
 
     world.addEntity(player);
 
