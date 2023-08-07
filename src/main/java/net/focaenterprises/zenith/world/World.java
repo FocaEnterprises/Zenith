@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class World {
   private List<Entity> entities;
@@ -15,6 +16,7 @@ public class World {
   public void initialize(Tilemap tilemap) {
     this.entities = new ArrayList<>();
     this.tilemap = tilemap;
+    this.generate();
   }
 
   public void update() {
@@ -29,6 +31,24 @@ public class World {
       }
 
       entity.update();
+    }
+  }
+
+  private void generate() {
+    Random random = new Random();
+
+    for(int x = 0; x < 50; x++) {
+      for(int y = 0; y < 50; y++) {
+        tilemap.setTileType(x, y, 1);
+
+        if(random.nextInt(100) < 4) {
+          tilemap.setTileType(x, y, 2);
+        }
+
+        if(random.nextInt(100) < 4) {
+          tilemap.setTileType(x, y, 3);
+        }
+      }
     }
   }
 

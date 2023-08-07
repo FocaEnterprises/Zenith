@@ -17,6 +17,7 @@ public class Window {
   private final BufferStrategy bufferStrategy;
   private final BufferedImage scaledLayer;
   private final Canvas canvas;
+
   public Window() {
     canvas = new Canvas();
     canvas.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -47,6 +48,7 @@ public class Window {
 
   public void hide() {
     frame.setVisible(false);
+    canvas.requestFocus();
   }
 
   public void addKeyListener(KeyListener k) {
