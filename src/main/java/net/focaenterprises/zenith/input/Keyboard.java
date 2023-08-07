@@ -1,4 +1,4 @@
-package net.focaenterprises.input;
+package net.focaenterprises.zenith.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

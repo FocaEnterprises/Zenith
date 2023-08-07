@@ -1,4 +1,4 @@
-package net.focaenterprises.world.tilemap;
+package net.focaenterprises.zenith.world.tilemap;
 
 import java.awt.*;
 

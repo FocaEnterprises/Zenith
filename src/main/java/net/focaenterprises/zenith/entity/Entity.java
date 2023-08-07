@@ -1,6 +1,6 @@
-package net.focaenterprises.entity;
+package net.focaenterprises.zenith.entity;
 
-import net.focaenterprises.world.World;
+import net.focaenterprises.zenith.world.World;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

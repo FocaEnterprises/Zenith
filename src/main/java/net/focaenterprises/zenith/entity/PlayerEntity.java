@@ -1,11 +1,10 @@
-package net.focaenterprises.entity;
+package net.focaenterprises.zenith.entity;
 
-import net.focaenterprises.input.Keyboard;
-import net.focaenterprises.world.World;
+import net.focaenterprises.zenith.input.Keyboard;
+import net.focaenterprises.zenith.world.World;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class PlayerEntity extends Entity {
   private final Keyboard keyboard;

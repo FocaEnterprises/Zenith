@@ -1,7 +1,7 @@
-package net.focaenterprises.world;
+package net.focaenterprises.zenith.world;
 
-import net.focaenterprises.entity.Entity;
-import net.focaenterprises.world.tilemap.Tilemap;
+import net.focaenterprises.zenith.entity.Entity;
+import net.focaenterprises.zenith.world.tilemap.Tilemap;
 
 import java.awt.Graphics;
 import java.util.ArrayList;

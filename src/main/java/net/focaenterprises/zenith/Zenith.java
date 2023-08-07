@@ -1,10 +1,10 @@
 package net.focaenterprises.zenith;
 
-import net.focaenterprises.entity.PlayerEntity;
-import net.focaenterprises.input.Keyboard;
-import net.focaenterprises.world.World;
-import net.focaenterprises.world.tilemap.TileFactory;
-import net.focaenterprises.world.tilemap.Tilemap;
+import net.focaenterprises.zenith.entity.PlayerEntity;
+import net.focaenterprises.zenith.input.Keyboard;
+import net.focaenterprises.zenith.world.World;
+import net.focaenterprises.zenith.world.tilemap.TileFactory;
+import net.focaenterprises.zenith.world.tilemap.Tilemap;
 import net.focaenterprises.zenith.graphics.Spritesheet;
 import net.focaenterprises.zenith.graphics.Window;
 
