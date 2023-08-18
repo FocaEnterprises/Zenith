@@ -1,6 +1,7 @@
-package net.focaenterprises.zenith;
+package net.focaenterprises.zenith.game;
 
 import net.focaenterprises.zenith.entity.PlayerEntity;
+import net.focaenterprises.zenith.game.Loop;
 import net.focaenterprises.zenith.graphics.Spritesheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;

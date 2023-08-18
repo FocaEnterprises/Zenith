@@ -1,4 +1,4 @@
-package net.focaenterprises.zenith;
+package net.focaenterprises.zenith.game;
 
 import net.focaenterprises.zenith.utils.Time;
 
