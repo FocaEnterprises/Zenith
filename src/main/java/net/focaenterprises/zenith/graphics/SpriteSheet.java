@@ -4,12 +4,12 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Spritesheet {
+public class SpriteSheet {
   private final String path;
 
   private BufferedImage spritesheet;
 
-  public Spritesheet(String path) {
+  public SpriteSheet(String path) {
     this.path = path;
   }
 

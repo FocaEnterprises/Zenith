@@ -1,8 +1,7 @@
 package net.focaenterprises.zenith.game;
 
 import net.focaenterprises.zenith.entity.PlayerEntity;
-import net.focaenterprises.zenith.game.Loop;
-import net.focaenterprises.zenith.graphics.Spritesheet;
+import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.World;
@@ -21,7 +20,7 @@ import static net.focaenterprises.zenith.world.World.TILE_SIZE;
 
 public class Zenith {
   private final Window window;
-  private final Spritesheet spritesheet;
+  private final SpriteSheet spritesheet;
   private final Loop loop;
   private final World world;
   private TileMap tilemap;
@@ -31,7 +30,7 @@ public class Zenith {
   public Zenith() {
     this.window = new Window();
     this.loop = new Loop(this::update, this::render);
-    this.spritesheet = new Spritesheet("/spritesheet.png");
+    this.spritesheet = new SpriteSheet("/spritesheet.png");
     this.world = new World();
     this.tilemap = new TileMap(50, 50, TILE_SIZE);
     this.keyboard = new Keyboard();
@@ -84,7 +83,7 @@ public class Zenith {
     bufferStrategy.show();
   }
 
-  public Spritesheet getSpritesheet() {
+  public SpriteSheet getSpritesheet() {
     return spritesheet;
   }
 
