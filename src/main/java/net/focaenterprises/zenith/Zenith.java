@@ -6,7 +6,7 @@ import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.World;
 import net.focaenterprises.zenith.world.tilemap.TileFactory;
-import net.focaenterprises.zenith.world.tilemap.Tilemap;
+import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -23,7 +23,7 @@ public class Zenith {
   private final Spritesheet spritesheet;
   private final Loop loop;
   private final World world;
-  private Tilemap tilemap;
+  private TileMap tilemap;
   private Keyboard keyboard;
   private PlayerEntity player;
 
@@ -32,7 +32,7 @@ public class Zenith {
     this.loop = new Loop(this::update, this::render);
     this.spritesheet = new Spritesheet("/spritesheet.png");
     this.world = new World();
-    this.tilemap = new Tilemap(50, 50, TILE_SIZE);
+    this.tilemap = new TileMap(50, 50, TILE_SIZE);
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
   }

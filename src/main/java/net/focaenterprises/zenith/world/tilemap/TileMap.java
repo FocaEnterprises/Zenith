@@ -2,11 +2,11 @@ package net.focaenterprises.zenith.world.tilemap;
 
 import java.awt.*;
 
-public class Tilemap {
+public class TileMap {
     private final int[][] tileData;
     private final int tile_size;
 
-    public Tilemap(int width, int height, int tile_size) {
+    public TileMap(int width, int height, int tile_size) {
         this.tileData = new int[width][height];
         this.tile_size = tile_size;
     }

@@ -1,7 +1,7 @@
 package net.focaenterprises.zenith.world;
 
 import net.focaenterprises.zenith.entity.Entity;
-import net.focaenterprises.zenith.world.tilemap.Tilemap;
+import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ public class World {
   public static final int TILE_SIZE = 16;
 
   private List<Entity> entities;
-  private Tilemap tilemap;
+  private TileMap tilemap;
 
-  public void initialize(Tilemap tilemap) {
+  public void initialize(TileMap tilemap) {
     this.entities = new ArrayList<>();
     this.tilemap = tilemap;
     this.generate();
@@ -63,7 +63,7 @@ public class World {
     return new ArrayList<>(entities);
   }
 
-  public Tilemap getTilemap() {
+  public TileMap getTilemap() {
     return tilemap;
   }
 
