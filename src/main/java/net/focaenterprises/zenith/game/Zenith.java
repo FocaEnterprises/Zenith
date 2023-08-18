@@ -26,7 +26,7 @@ public class Zenith {
   private final World world;
   private TileMap tilemap;
   private Keyboard keyboard;
-  private PlayerEntity player;
+  private PlayerController playerController;
 
   public Zenith() {
     this.window = new Window();
@@ -50,9 +50,10 @@ public class Zenith {
     TileRegistry.newTileType(spritesheet.getSprite(16, 16, TILE_SIZE, TILE_SIZE), true);
     TileRegistry.newTileType(spritesheet.getSprite(32, 16, TILE_SIZE, TILE_SIZE), true);
 
-    player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, TILE_SIZE, TILE_SIZE), keyboard);
-
+    PlayerEntity player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, TILE_SIZE, TILE_SIZE));
     world.addEntity(player);
+
+    playerController = new PlayerController(keyboard, player);
 
     window.show();
     loop.loop();
@@ -60,6 +61,7 @@ public class Zenith {
 
   private void update() {
     keyboard.poll();
+    playerController.update();
     world.update();
   }
 

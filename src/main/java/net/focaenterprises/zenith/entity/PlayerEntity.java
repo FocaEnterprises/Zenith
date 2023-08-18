@@ -1,54 +1,12 @@
 package net.focaenterprises.zenith.entity;
 
-import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.World;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class PlayerEntity extends Entity {
-  private final Keyboard keyboard;
 
-  public PlayerEntity(World world, int x, int y, BufferedImage sprite, Keyboard keyboard) {
+  public PlayerEntity(World world, int x, int y, BufferedImage sprite) {
     super(world, x, y, sprite);
-
-    this.keyboard = keyboard;
-  }
-
-  @Override
-  public void update() {
-    int old_x = x;
-    int old_y = y;
-
-    int direction_x = 0;
-    int direction_y = 0;
-
-    if (keyboard.keyboard_check(KeyEvent.VK_W)) {
-      direction_y -= 1;
-    }
-
-    if (keyboard.keyboard_check(KeyEvent.VK_S)) {
-      direction_y += 1;
-    }
-
-    if (keyboard.keyboard_check(KeyEvent.VK_D)) {
-      direction_x += 1;
-    }
-
-    if (keyboard.keyboard_check(KeyEvent.VK_A)) {
-      direction_x -= 1;
-    }
-
-    x += direction_x;
-
-    if (world.getTilemap().isColliding(x, y, 15, 15)) {
-      x = old_x;
-    }
-
-    y += direction_y;
-
-    if (world.getTilemap().isColliding(x, y, 15, 15)) {
-      y = old_y;
-    }
   }
 }
