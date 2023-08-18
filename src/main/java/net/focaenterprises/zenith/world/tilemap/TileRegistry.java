@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TileFactory {
+public class TileRegistry {
     private static Map<Integer, TileType> tileTypes = new HashMap<>();
 
     public static void newTileType(BufferedImage image, boolean isSolid) {

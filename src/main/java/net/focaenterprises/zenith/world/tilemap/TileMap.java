@@ -24,7 +24,7 @@ public class TileMap {
     }
 
     public TileType getTileType(int x, int y) {
-        return TileFactory.getTileType(tileData[x][y]);
+        return TileRegistry.getTileType(tileData[x][y]);
     }
 
     public void setTileType(int x, int y, int index) {

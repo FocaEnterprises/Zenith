@@ -5,7 +5,7 @@ import net.focaenterprises.zenith.graphics.Spritesheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.World;
-import net.focaenterprises.zenith.world.tilemap.TileFactory;
+import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 import java.awt.Color;
@@ -45,9 +45,9 @@ public class Zenith {
 
     world.initialize(tilemap);
 
-    TileFactory.newTileType(spritesheet.getSprite(0, 16, TILE_SIZE, TILE_SIZE), false);
-    TileFactory.newTileType(spritesheet.getSprite(16, 16, TILE_SIZE, TILE_SIZE), true);
-    TileFactory.newTileType(spritesheet.getSprite(32, 16, TILE_SIZE, TILE_SIZE), true);
+    TileRegistry.newTileType(spritesheet.getSprite(0, 16, TILE_SIZE, TILE_SIZE), false);
+    TileRegistry.newTileType(spritesheet.getSprite(16, 16, TILE_SIZE, TILE_SIZE), true);
+    TileRegistry.newTileType(spritesheet.getSprite(32, 16, TILE_SIZE, TILE_SIZE), true);
 
     player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, TILE_SIZE, TILE_SIZE), keyboard);
 
