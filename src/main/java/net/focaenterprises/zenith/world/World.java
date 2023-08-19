@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 public class World {
-  public static final int TILE_SIZE = 16;
-
   private List<Entity> entities;
   private TileMap tilemap;
 

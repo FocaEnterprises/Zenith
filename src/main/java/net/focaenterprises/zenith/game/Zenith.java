@@ -13,27 +13,21 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-import static net.focaenterprises.zenith.graphics.Window.HEIGHT;
-import static net.focaenterprises.zenith.graphics.Window.SCALE;
-import static net.focaenterprises.zenith.graphics.Window.WIDTH;
-import static net.focaenterprises.zenith.world.World.TILE_SIZE;
-
-public class Zenith {
+public class Zenith implements IGameContext {
   private final Window window;
   private final SpriteSheet spritesheet;
   private final Loop loop;
-  private final int maxFPS = 60;
   private final World world;
   private TileMap tilemap;
   private Keyboard keyboard;
   private PlayerController playerController;
 
   public Zenith() {
-    this.window = new Window();
-    this.loop = new Loop(this::update, this::render, maxFPS);
+    this.window = new Window(280, 180, 3);
+    this.loop = new Loop(this::update, this::render, 60);
     this.spritesheet = new SpriteSheet("");
     this.world = new World();
-    this.tilemap = new TileMap(50, 50, TILE_SIZE);
+    this.tilemap = new TileMap(50, 50, 16);
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
   }
@@ -55,10 +49,10 @@ public class Zenith {
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
     TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
-    PlayerEntity player = new PlayerEntity(world, 100, 100, spritesheet.getSprite("player"));
+    PlayerEntity player = new PlayerEntity(this, world, 100, 100, spritesheet.getSprite("player"));
     world.addEntity(player);
 
-    playerController = new PlayerController(keyboard, player);
+    playerController = new PlayerController(this, player);
 
     window.show();
     loop.start();
@@ -78,11 +72,11 @@ public class Zenith {
     Graphics layerGraphics = layer.getGraphics();
 
     layerGraphics.setColor(new Color(141, 141, 141));
-    layerGraphics.fillRect(0, 0, WIDTH, HEIGHT);
+    layerGraphics.fillRect(0, 0, window.width, window.height);
 
     world.render(layerGraphics);
 
-    uiGraphics.drawImage(layer, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+    uiGraphics.drawImage(layer, 0, 0, window.width * window.scale, window.height * window.scale, null);
 
     layerGraphics.dispose();
     uiGraphics.dispose();
@@ -91,6 +85,31 @@ public class Zenith {
 
   public SpriteSheet getSpritesheet() {
     return spritesheet;
+  }
+
+  @Override
+  public int getMaxFPS() {
+    return loop.getMaxFPS();
+  }
+
+  @Override
+  public int getWindowWidth() {
+    return window.width;
+  }
+
+  @Override
+  public int getWindowHeight() {
+    return window.height;
+  }
+
+  @Override
+  public int getWindowScale() {
+    return window.scale;
+  }
+
+  @Override
+  public Keyboard geKeyboard() {
+    return keyboard;
   }
 
   public World getWorld() {

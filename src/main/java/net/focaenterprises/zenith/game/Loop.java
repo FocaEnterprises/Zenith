@@ -40,4 +40,8 @@ public class Loop {
       }
     }
   }
+
+  public int getMaxFPS() {
+    return maxFPS;
+  }
 }

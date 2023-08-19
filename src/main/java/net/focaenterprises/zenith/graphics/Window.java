@@ -9,29 +9,33 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class Window {
-  public static final int WIDTH = 320;
-  public static final int HEIGHT = 180;
-  public static final int SCALE = 3;
+  public final int width;
+  public final int height;
+  public final int scale;
 
   private final JFrame frame;
   private final BufferStrategy bufferStrategy;
   private final BufferedImage scaledLayer;
   private final Canvas canvas;
 
-  public Window() {
-    canvas = new Canvas();
-    canvas.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
+  public Window(int width, int height, int scale) {
+    this.width = width;
+    this.height = height;
+    this.scale = scale;
 
-    frame = new JFrame("Zenith");
-    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.setResizable(false);
-    frame.add(canvas);
-    frame.pack();
-    frame.setLocationRelativeTo(null);
-    canvas.createBufferStrategy(3);
+    this.canvas = new Canvas();
+    this.canvas.setPreferredSize(new Dimension(width * scale, height * scale));
+
+    this.frame = new JFrame("Zenith");
+    this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    this.frame.setResizable(false);
+    this.frame.add(canvas);
+    this.frame.pack();
+    this.frame.setLocationRelativeTo(null);
+    this.canvas.createBufferStrategy(3);
 
     bufferStrategy = canvas.getBufferStrategy();
-    scaledLayer = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    scaledLayer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
   }
 
   public BufferStrategy getBufferStrategy() {

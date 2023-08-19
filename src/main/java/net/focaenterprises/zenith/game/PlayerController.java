@@ -10,9 +10,9 @@ public class PlayerController {
   private final PlayerEntity player;
   private final Keyboard input;
 
-  public PlayerController(Keyboard input, PlayerEntity player) {
+  public PlayerController(IGameContext context, PlayerEntity player) {
     this.player = player;
-    this.input = input;
+    this.input = context.geKeyboard();
   }
 
   public void update() {
