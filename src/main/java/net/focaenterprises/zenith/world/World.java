@@ -24,10 +24,10 @@ public class World {
   public void update() {
     Iterator<Entity> iterator = entities.iterator();
 
-    while(iterator.hasNext()) {
+    while (iterator.hasNext()) {
       Entity entity = iterator.next();
 
-      if(entity.isRemoved()) {
+      if (entity.isRemoved()) {
         iterator.remove();
         continue;
       }
@@ -39,15 +39,15 @@ public class World {
   private void generate() {
     Random random = new Random();
 
-    for(int x = 0; x < 50; x++) {
-      for(int y = 0; y < 50; y++) {
+    for (int x = 0; x < 50; x++) {
+      for (int y = 0; y < 50; y++) {
         tilemap.setTileType(x, y, 1);
 
-        if(random.nextInt(100) < 4) {
+        if (random.nextInt(100) < 4) {
           tilemap.setTileType(x, y, 2);
         }
 
-        if(random.nextInt(100) < 4) {
+        if (random.nextInt(100) < 4) {
           tilemap.setTileType(x, y, 3);
         }
       }

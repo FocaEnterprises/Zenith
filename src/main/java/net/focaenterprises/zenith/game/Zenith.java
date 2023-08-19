@@ -5,8 +5,8 @@ import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.World;
-import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
+import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -43,7 +43,7 @@ public class Zenith {
     spritesheet.registerSprite("dirt");
     spritesheet.registerSprite("stone");
 
-    if(!spritesheet.loadSprites()) {
+    if (!spritesheet.loadSprites()) {
       System.out.println("Failed to load spritesheet, shutting down!");
       System.exit(1);
     }

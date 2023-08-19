@@ -20,38 +20,38 @@ public class PlayerController {
 
     int x = player.getX();
     int y = player.getY();
-    int newX = x;
-    int newY = y;
+    int xNext = x;
+    int yNext = y;
 
-    int direction_x = 0;
-    int direction_y = 0;
+    int xDirection = 0;
+    int yDirection = 0;
 
     if (input.keyboard_check(KeyEvent.VK_W)) {
-      direction_y -= 1;
+      yDirection -= 1;
     }
 
     if (input.keyboard_check(KeyEvent.VK_S)) {
-      direction_y += 1;
+      yDirection += 1;
     }
 
     if (input.keyboard_check(KeyEvent.VK_D)) {
-      direction_x += 1;
+      xDirection += 1;
     }
 
     if (input.keyboard_check(KeyEvent.VK_A)) {
-      direction_x -= 1;
+      xDirection -= 1;
     }
 
-    newX += direction_x;
+    xNext += xDirection;
 
-    if (!world.getTilemap().isColliding(newX, y, 15, 15)) {
-      player.setX(newX);
+    if (!world.getTilemap().isColliding(xNext, y, 15, 15)) {
+      player.setX(xNext);
     }
 
-    newY += direction_y;
+    yNext += yDirection;
 
-    if (!world.getTilemap().isColliding(x, newY, 15, 15)) {
-      player.setY(newY);
+    if (!world.getTilemap().isColliding(x, yNext, 15, 15)) {
+      player.setY(yNext);
     }
   }
 }

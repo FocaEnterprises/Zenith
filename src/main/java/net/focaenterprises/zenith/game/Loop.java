@@ -22,12 +22,12 @@ public class Loop {
     double ns = 1_000_000_000 / 60.0D;
     double deltaTime = 0;
 
-    while(isRunning) {
+    while (isRunning) {
       now = System.nanoTime();
       deltaTime += (now - lastTime) / ns;
       lastTime = now;
 
-      while(deltaTime >= 1) {
+      while (deltaTime >= 1) {
         deltaTime--;
         updateCallback.run();
         renderCallback.run();
