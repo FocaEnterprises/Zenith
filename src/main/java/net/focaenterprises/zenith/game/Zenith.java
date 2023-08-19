@@ -22,6 +22,7 @@ public class Zenith {
   private final Window window;
   private final SpriteSheet spritesheet;
   private final Loop loop;
+  private final int maxFPS = 60;
   private final World world;
   private TileMap tilemap;
   private Keyboard keyboard;
@@ -29,7 +30,7 @@ public class Zenith {
 
   public Zenith() {
     this.window = new Window();
-    this.loop = new Loop(this::update, this::render);
+    this.loop = new Loop(this::update, this::render, maxFPS);
     this.spritesheet = new SpriteSheet("");
     this.world = new World();
     this.tilemap = new TileMap(50, 50, TILE_SIZE);
@@ -60,7 +61,7 @@ public class Zenith {
     playerController = new PlayerController(keyboard, player);
 
     window.show();
-    loop.loop();
+    loop.start();
   }
 
   private void update() {
