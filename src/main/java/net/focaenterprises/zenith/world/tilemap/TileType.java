@@ -1,19 +1,20 @@
 package net.focaenterprises.zenith.world.tilemap;
 
+import net.focaenterprises.zenith.graphics.Sprite;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class TileType {
-    private final BufferedImage image;
+    private final Sprite sprite;
     private final boolean solid;
 
-    TileType(BufferedImage image, boolean isSolid) {
-        this.image = image;
+    TileType(Sprite sprite, boolean isSolid) {
+        this.sprite = sprite;
         this.solid = isSolid;
     }
 
-    public void render(Graphics g, int x, int y) {
-        g.drawImage(image, x, y, null);
+    public void render(Graphics graphics, int x, int y) {
+        sprite.render(graphics, x, y);
     }
 
     public boolean isSolid() {

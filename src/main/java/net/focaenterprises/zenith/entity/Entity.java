@@ -1,20 +1,20 @@
 package net.focaenterprises.zenith.entity;
 
+import net.focaenterprises.zenith.graphics.Sprite;
 import net.focaenterprises.zenith.world.World;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class Entity {
   protected World world;
-  protected BufferedImage sprite;
+  protected Sprite sprite;
 
   protected int x;
   protected int y;
 
   protected boolean removed;
 
-  public Entity(World world, int x, int y, BufferedImage sprite) {
+  public Entity(World world, int x, int y, Sprite sprite) {
     this.x = x;
     this.y = y;
     this.sprite = sprite;
@@ -26,7 +26,7 @@ public class Entity {
   }
 
   public void render(Graphics graphics) {
-    graphics.drawImage(sprite, x, y, null);
+    sprite.render(graphics, x, y);
   }
 
   public int getX() {

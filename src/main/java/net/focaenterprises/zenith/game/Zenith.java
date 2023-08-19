@@ -30,7 +30,7 @@ public class Zenith {
   public Zenith() {
     this.window = new Window();
     this.loop = new Loop(this::update, this::render);
-    this.spritesheet = new SpriteSheet("/spritesheet.png");
+    this.spritesheet = new SpriteSheet("");
     this.world = new World();
     this.tilemap = new TileMap(50, 50, TILE_SIZE);
     this.keyboard = new Keyboard();
@@ -38,18 +38,23 @@ public class Zenith {
   }
 
   public void start() {
-    if(!spritesheet.loadSpritesheet()) {
+    spritesheet.registerSprite("player");
+    spritesheet.registerSprite("grass");
+    spritesheet.registerSprite("dirt");
+    spritesheet.registerSprite("stone");
+
+    if(!spritesheet.loadSprites()) {
       System.out.println("Failed to load spritesheet, shutting down!");
       System.exit(1);
     }
 
     world.initialize(tilemap);
 
-    TileRegistry.newTileType(spritesheet.getSprite(0, 16, TILE_SIZE, TILE_SIZE), false);
-    TileRegistry.newTileType(spritesheet.getSprite(16, 16, TILE_SIZE, TILE_SIZE), true);
-    TileRegistry.newTileType(spritesheet.getSprite(32, 16, TILE_SIZE, TILE_SIZE), true);
+    TileRegistry.newTileType(spritesheet.getSprite("grass"), false);
+    TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
+    TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
-    PlayerEntity player = new PlayerEntity(world, 100, 100, spritesheet.getSprite(0, 0, TILE_SIZE, TILE_SIZE));
+    PlayerEntity player = new PlayerEntity(world, 100, 100, spritesheet.getSprite("player"));
     world.addEntity(player);
 
     playerController = new PlayerController(keyboard, player);

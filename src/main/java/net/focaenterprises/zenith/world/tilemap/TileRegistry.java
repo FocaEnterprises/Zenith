@@ -1,14 +1,15 @@
 package net.focaenterprises.zenith.world.tilemap;
 
-import java.awt.image.BufferedImage;
+import net.focaenterprises.zenith.graphics.Sprite;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class TileRegistry {
     private static Map<Integer, TileType> tileTypes = new HashMap<>();
 
-    public static void newTileType(BufferedImage image, boolean isSolid) {
-        tileTypes.put(tileTypes.size(), new TileType(image, isSolid));
+    public static void newTileType(Sprite sprite, boolean isSolid) {
+        tileTypes.put(tileTypes.size(), new TileType(sprite, isSolid));
     }
 
     public static TileType getTileType(int index) {
