@@ -1,36 +1,33 @@
 package net.focaenterprises.zenith.world;
 
-import net.focaenterprises.zenith.entity.Entity;
+import net.focaenterprises.zenith.ecs.component.IComponent;
+import net.focaenterprises.zenith.ecs.component.IRenderingComponent;
+import net.focaenterprises.zenith.ecs.entity.Entity;
+import net.focaenterprises.zenith.ecs.system.AbstractRenderingSystem;
+import net.focaenterprises.zenith.ecs.system.ISystem;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class World {
-  private List<Entity> entities;
   private TileMap tilemap;
+  private List<ISystem> systems;
+  private List<Entity> entities;
 
   public void initialize(TileMap tilemap) {
-    this.entities = new ArrayList<>();
     this.tilemap = tilemap;
+    this.systems = new ArrayList<>();
+    this.entities = new ArrayList<>();
     this.generate();
   }
 
   public void update() {
-    Iterator<Entity> iterator = entities.iterator();
-
-    while (iterator.hasNext()) {
-      Entity entity = iterator.next();
-
-      if (entity.isRemoved()) {
-        iterator.remove();
-        continue;
+    for (ISystem system : systems) {
+      if (system instanceof AbstractRenderingSystem == false) {
+        system.update();
       }
-
-      entity.update();
     }
   }
 
@@ -52,20 +49,72 @@ public class World {
     }
   }
 
-  public void render(Graphics graphics) {
-    tilemap.render(graphics);
-    entities.forEach(e -> e.render(graphics));
+  public void registerSystem(ISystem system) {
+    system.setWorld(this);
+
+    getSystems().add(system);
+  }
+
+  public Entity createEntity(String name) {
+    Entity entity = new Entity(name);
+    entities.add(entity);
+
+    return entity;
   }
 
   public List<Entity> getEntities() {
-    return new ArrayList<>(entities);
+    return entities;
+  }
+
+  public List<ISystem> getSystems() {
+    return systems;
+  }
+
+  public void render(Graphics graphics) {
+    tilemap.render(graphics);
+
+//    HashMap<IRenderingComponent, Entity> map = new HashMap<>();
+//
+//    for (Entity entity : entities) {
+//      for (Class<? extends IComponent> componentClass : entity.getAllComponents()) {
+//        IComponent component = entity.getComponent(componentClass);
+//
+//        if (component instanceof IRenderingComponent) {
+//          map.put((IRenderingComponent) component, entity);
+//        }
+//      }
+//    }
+//
+//    Set<Map.Entry<IRenderingComponent, Entity>> entrySet = map.entrySet();
+//
+//    List<Map.Entry<IRenderingComponent, Entity>> list = new ArrayList<>(entrySet);
+//
+//    Collections.sort(list, Comparator.comparingInt(o -> -o.getKey().getDepth()));
+//
+//    System.out.println("List:");
+//    for (Map.Entry<IRenderingComponent, Entity> entry : list) {
+//      System.out.println(entry.getValue().getName() + " : " + entry.getKey().getClass().getSimpleName() + " : " + entry.getKey().getDepth());
+//      for (ISystem system : systems) {
+//        if(system instanceof AbstractRenderingSystem) {
+//          Entity entity = entry.getValue();
+//
+//          if (entity.getAllComponents().containsAll(system.getComponents()) && system.getComponents().contains(entry.getKey().getClass())) {
+//            ((AbstractRenderingSystem) system).setGraphics(graphics);
+//            system.process(entity);
+//          }
+//        }
+//      }
+//    }
+
+    for (ISystem system : systems) {
+      if (system instanceof AbstractRenderingSystem == true) {
+        ((AbstractRenderingSystem) system).setGraphics(graphics);
+        system.update();
+      }
+    }
   }
 
   public TileMap getTilemap() {
     return tilemap;
-  }
-
-  public void addEntity(Entity entity) {
-    entities.add(entity);
   }
 }

@@ -39,16 +39,16 @@ public class Keyboard implements KeyListener {
     }
   }
 
-  public boolean keyboard_check(int keyCode) {
+  public boolean keyboardCheck(int keyCode) {
     return keys[keyCode] == KeyState.ONCE_PRESSED ||
       keys[keyCode] == KeyState.PRESSED;
   }
 
-  public boolean keyboard_check_pressed(int keyCode) {
+  public boolean keyboardCheckPressed(int keyCode) {
     return keys[keyCode] == KeyState.ONCE_PRESSED;
   }
 
-  public boolean keyboard_check_released(int keyCode) {
+  public boolean keyboardCheckReleased(int keyCode) {
     return keys[keyCode] == KeyState.ONCE_RELEASED;
   }
 

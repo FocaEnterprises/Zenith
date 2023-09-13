@@ -1,6 +1,8 @@
 package net.focaenterprises.zenith.game;
 
-import net.focaenterprises.zenith.entity.PlayerEntity;
+import net.focaenterprises.zenith.ecs.component.*;
+import net.focaenterprises.zenith.ecs.system.*;
+import net.focaenterprises.zenith.graphics.Sprite;
 import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
@@ -10,8 +12,10 @@ import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class Zenith implements IGameContext {
   private final Window window;
@@ -20,7 +24,6 @@ public class Zenith implements IGameContext {
   private final World world;
   private TileMap tilemap;
   private Keyboard keyboard;
-  private PlayerController playerController;
 
   public Zenith() {
     this.window = new Window(280, 180, 3);
@@ -49,10 +52,19 @@ public class Zenith implements IGameContext {
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
     TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
-    PlayerEntity player = new PlayerEntity(this, world, 100, 100, spritesheet.getSprite("player"));
-    world.addEntity(player);
+    world.registerSystem(new SpriteRenderingSystem());
+    world.registerSystem(new SquareRenderingSystem());
 
-    playerController = new PlayerController(this, player);
+    world.registerSystem(new MovementSystem());
+    world.registerSystem(new InputSystem(this));
+    world.registerSystem(new ControlSystem());
+
+    world.createEntity("Godofredo")
+            .attach(new TransformComponent(0, 0, 16, 16))
+            .attach(new SpriteComponent(spritesheet.getSprite("player"), 1))
+            .attach(new KeyBindingComponent(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT))
+            .attach(new ControlComponent())
+            .attach(new VelocityComponent(0.7));
 
     window.show();
     loop.start();
@@ -60,7 +72,6 @@ public class Zenith implements IGameContext {
 
   private void update() {
     keyboard.poll();
-    playerController.update();
     world.update();
   }
 
