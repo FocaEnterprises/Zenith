@@ -1,23 +1,35 @@
 package net.focaenterprises.zenith.world.tilemap;
 
-import java.awt.Graphics;
+import net.focaenterprises.zenith.graphics.Renderer;
+
+import java.awt.*;
 
 public class TileMap {
   private final int[][] tileData;
+  private final boolean[][] tileDebug;
   private final int tileSize;
 
   public TileMap(int width, int height, int tileSize) {
     this.tileData = new int[width][height];
+    this.tileDebug = new boolean[width][height];
     this.tileSize = tileSize;
   }
 
-  public void render(Graphics g) {
+  public void render(Renderer r) {
     for (int x = 0; x < tileData.length; x++) {
       for (int y = 0; y < tileData[x].length; y++) {
         TileType tileType = getTileType(x, y);
 
+        if (tileDebug[x][y] == true) {
+          r.setColor(Color.red);
+          r.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+          tileDebug[x][y] = false;
+
+          continue;
+        }
+
         if (tileType != null) {
-          tileType.render(g, x * tileSize, y * tileSize);
+          tileType.render(r, x * tileSize, y * tileSize);
         }
       }
     }
@@ -38,9 +50,9 @@ public class TileMap {
     int bottomObject = y + height;
 
     int leftTile = leftObject / tileSize;
-    int rightTile = rightObject / tileSize;
+    int rightTile = (rightObject - 1) / tileSize;
     int topTile = topObject / tileSize;
-    int bottomTile = bottomObject / tileSize;
+    int bottomTile = (bottomObject - 1) / tileSize;
 
     if (leftObject < 0 || rightObject >= getWidth() * tileSize || topObject < 0 || bottomObject >= getHeight() * tileSize) {
       return true;

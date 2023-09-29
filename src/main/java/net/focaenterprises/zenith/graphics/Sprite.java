@@ -12,16 +12,16 @@ public class Sprite {
   int width;
   int height;
 
-  public void render(Graphics graphics) {
-    render(graphics, 0, 0);
+  public void render(Renderer renderer) {
+    render(renderer, 0, 0);
   }
 
-  public void render(Graphics graphics, int x, int y) {
-    render(graphics, x, y, width, height);
+  public void render(Renderer renderer, int x, int y) {
+    render(renderer, x, y, width, height);
   }
 
-  public void render(Graphics graphics, int x, int y, int width, int height) {
-    graphics.drawImage(image, x, y, width, height, null);
+  public void render(Renderer renderer, int x, int y, int width, int height) {
+    renderer.drawImage(image, x, y, width, height, null);
   }
 
   void load(String path) throws IOException {

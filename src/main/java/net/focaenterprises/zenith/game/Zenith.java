@@ -2,6 +2,7 @@ package net.focaenterprises.zenith.game;
 
 import net.focaenterprises.zenith.ecs.component.*;
 import net.focaenterprises.zenith.ecs.system.*;
+import net.focaenterprises.zenith.graphics.Renderer;
 import net.focaenterprises.zenith.graphics.Sprite;
 import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
@@ -19,6 +20,7 @@ import java.util.Random;
 
 public class Zenith implements IGameContext {
   private final Window window;
+  private final Renderer renderer;
   private final SpriteSheet spritesheet;
   private final Loop loop;
   private final World world;
@@ -27,10 +29,14 @@ public class Zenith implements IGameContext {
 
   public Zenith() {
     this.window = new Window(280, 180, 3);
+
+    this.renderer = new Renderer(window);
+
     this.loop = new Loop(this::update, this::render, 60);
     this.spritesheet = new SpriteSheet("");
     this.world = new World();
     this.tilemap = new TileMap(50, 50, 16);
+
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
   }
@@ -52,19 +58,21 @@ public class Zenith implements IGameContext {
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
     TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
-    world.registerSystem(new SpriteRenderingSystem());
-    world.registerSystem(new SquareRenderingSystem());
+    world.registerSystem(new SpriteRenderingSystem(renderer));
+    world.registerSystem(new SquareRenderingSystem(renderer));
 
     world.registerSystem(new MovementSystem());
     world.registerSystem(new InputSystem(this));
     world.registerSystem(new ControlSystem());
+    world.registerSystem(new TileCollisionSystem(tilemap));
 
     world.createEntity("Godofredo")
             .attach(new TransformComponent(0, 0, 16, 16))
-            .attach(new SpriteComponent(spritesheet.getSprite("player"), 1))
-            .attach(new KeyBindingComponent(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT))
+            .attach(new SquareComponent(Color.blue, 1))
             .attach(new ControlComponent())
-            .attach(new VelocityComponent(0.7));
+            .attach(new KeyBindingComponent(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT))
+            .attach(new VelocityComponent(0.7))
+            .attach(new RigidBody(0, 0, 16, 16));
 
     window.show();
     loop.start();
@@ -76,22 +84,11 @@ public class Zenith implements IGameContext {
   }
 
   private void render() {
-    BufferStrategy bufferStrategy = window.getBufferStrategy();
-    BufferedImage layer = window.getScaledLayer();
+    renderer.begin();
 
-    Graphics uiGraphics = bufferStrategy.getDrawGraphics();
-    Graphics layerGraphics = layer.getGraphics();
+    world.render(renderer);
 
-    layerGraphics.setColor(new Color(141, 141, 141));
-    layerGraphics.fillRect(0, 0, window.width, window.height);
-
-    world.render(layerGraphics);
-
-    uiGraphics.drawImage(layer, 0, 0, window.width * window.scale, window.height * window.scale, null);
-
-    layerGraphics.dispose();
-    uiGraphics.dispose();
-    bufferStrategy.show();
+    renderer.end();
   }
 
   public SpriteSheet getSpritesheet() {

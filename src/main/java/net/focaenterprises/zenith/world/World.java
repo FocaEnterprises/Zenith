@@ -5,6 +5,7 @@ import net.focaenterprises.zenith.ecs.component.IRenderingComponent;
 import net.focaenterprises.zenith.ecs.entity.Entity;
 import net.focaenterprises.zenith.ecs.system.AbstractRenderingSystem;
 import net.focaenterprises.zenith.ecs.system.ISystem;
+import net.focaenterprises.zenith.graphics.Renderer;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 import java.awt.Graphics;
@@ -62,6 +63,10 @@ public class World {
     return entity;
   }
 
+  public Entity getEntity(String name) {
+    return entities.stream().filter(entity -> entity.getName().equals(name)).findAny().orElse(null);
+  }
+
   public List<Entity> getEntities() {
     return entities;
   }
@@ -70,8 +75,8 @@ public class World {
     return systems;
   }
 
-  public void render(Graphics graphics) {
-    tilemap.render(graphics);
+  public void render(Renderer renderer) {
+    tilemap.render(renderer);
 
 //    HashMap<IRenderingComponent, Entity> map = new HashMap<>();
 //
@@ -108,7 +113,6 @@ public class World {
 
     for (ISystem system : systems) {
       if (system instanceof AbstractRenderingSystem == true) {
-        ((AbstractRenderingSystem) system).setGraphics(graphics);
         system.update();
       }
     }
