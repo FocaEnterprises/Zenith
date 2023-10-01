@@ -45,14 +45,14 @@ public class TileMap {
 
   public boolean isColliding(int x, int y, int width, int height) {
     int leftObject = x;
-    int rightObject = x + width;
+    int rightObject = x + width - 1;
     int topObject = y;
-    int bottomObject = y + height;
+    int bottomObject = y + height - 1;
 
     int leftTile = leftObject / tileSize;
-    int rightTile = (rightObject - 1) / tileSize;
+    int rightTile = rightObject / tileSize;
     int topTile = topObject / tileSize;
-    int bottomTile = (bottomObject - 1) / tileSize;
+    int bottomTile = bottomObject / tileSize;
 
     if (leftObject < 0 || rightObject >= getWidth() * tileSize || topObject < 0 || bottomObject >= getHeight() * tileSize) {
       return true;

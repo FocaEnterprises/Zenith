@@ -39,6 +39,7 @@ public class Zenith implements IGameContext {
 
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
+
   }
 
   public void start() {
@@ -58,21 +59,20 @@ public class Zenith implements IGameContext {
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
     TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
+    world.registerSystem(new TileCollisionSystem(tilemap));
+    world.registerSystem(new MovementSystem());
+    world.registerSystem(new InputSystem(this));
+    world.registerSystem(new ControlSystem(Math.PI / 3));
+
     world.registerSystem(new SpriteRenderingSystem(renderer));
     world.registerSystem(new SquareRenderingSystem(renderer));
 
-    world.registerSystem(new MovementSystem());
-    world.registerSystem(new InputSystem(this));
-    world.registerSystem(new ControlSystem());
-    world.registerSystem(new TileCollisionSystem(tilemap));
-
     world.createEntity("Godofredo")
-            .attach(new TransformComponent(0, 0, 16, 16))
-            .attach(new SquareComponent(Color.blue, 1))
-            .attach(new ControlComponent())
+            .attach(new TransformComponent(16 * 5, 16 * 8 + 4, 16, 16))
             .attach(new KeyBindingComponent(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT))
-            .attach(new VelocityComponent(0.7))
-            .attach(new RigidBody(0, 0, 16, 16));
+            .attach(new ControlComponent())
+            .attach(new BodyComponent(true, 1, 1))
+            .attach(new SquareComponent(Color.blue, 1));
 
     window.show();
     loop.start();
@@ -80,6 +80,7 @@ public class Zenith implements IGameContext {
 
   private void update() {
     keyboard.poll();
+
     world.update();
   }
 

@@ -1,8 +1,7 @@
 package net.focaenterprises.zenith.ecs.system;
 
-import net.focaenterprises.zenith.ecs.component.RigidBody;
+import net.focaenterprises.zenith.ecs.component.BodyComponent;
 import net.focaenterprises.zenith.ecs.component.TransformComponent;
-import net.focaenterprises.zenith.ecs.component.VelocityComponent;
 import net.focaenterprises.zenith.ecs.entity.IEntity;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
@@ -17,39 +16,39 @@ public class TileCollisionSystem extends AbstractSystem {
     @Override
     public void registerComponents() {
         registerComponent(TransformComponent.class);
-        registerComponent(RigidBody.class);
-        registerComponent(VelocityComponent.class);
+        registerComponent(BodyComponent.class);
     }
 
     @Override
     public void process(IEntity entity) {
         TransformComponent transform = (TransformComponent) entity.getComponent(TransformComponent.class);
-        RigidBody rigidBody = (RigidBody) entity.getComponent(RigidBody.class);
-        VelocityComponent velocity = (VelocityComponent) entity.getComponent(VelocityComponent.class);
+        BodyComponent rigidBody = (BodyComponent) entity.getComponent(BodyComponent.class);
 
-        int width = rigidBody.width;
-        int height = rigidBody.height;
-        double hspd = velocity.directionX * velocity.speed;
-        double vspd = velocity.directionY * velocity.speed;
+        double x = transform.x;
+        double y = transform.y;
+        int width = (int) transform.width;
+        int height = (int) transform.height;
 
-        rigidBody.isHorizontalColliding = false;
-        rigidBody.isVerticalColliding = false;
+        double horizontalSpeed = rigidBody.horizontalSpeed;
+        double verticalSpeed = rigidBody.verticalSpeed;
 
-        if (tileMap.isColliding((int) (transform.x + hspd), (int) transform.y, width, height)) {
-            while(!tileMap.isColliding((int) (transform.x + Math.signum(hspd)), (int) transform.y, width, height)) {
-                transform.x += Math.signum(hspd);
+        for (int i = 0; i < Math.abs(horizontalSpeed); i++) {
+            int nextX = (int) (x + ((i + 1) * Math.signum(horizontalSpeed)));
+            if (tileMap.isColliding(nextX, (int) y, width, height)) {
+                horizontalSpeed = (int) (i * Math.signum(horizontalSpeed));
+                break;
             }
-
-            rigidBody.isHorizontalColliding = true;
         }
 
-        if (tileMap.isColliding((int) (transform.x), (int) (transform.y + vspd), width, height)) {
-            while(!tileMap.isColliding((int) transform.x, (int) (transform.y + Math.signum(vspd)), width, height)) {
-                transform.y += Math.signum(vspd);
+        for (int i = 0; i < Math.abs(verticalSpeed); i++) {
+            int nextY = (int) (y + ((i + 1) * Math.signum(verticalSpeed)));
+            if (tileMap.isColliding((int) (x + horizontalSpeed), nextY, width, height)) {
+                verticalSpeed = (int) (i * Math.signum(verticalSpeed));
+                break;
             }
-
-            rigidBody.isVerticalColliding = true;
         }
+
+        rigidBody.horizontalSpeed = horizontalSpeed;
+        rigidBody.verticalSpeed = verticalSpeed;
     }
 }
-

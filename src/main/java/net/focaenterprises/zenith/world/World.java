@@ -38,16 +38,11 @@ public class World {
     for (int x = 0; x < 50; x++) {
       for (int y = 0; y < 50; y++) {
         tilemap.setTileType(x, y, 1);
-
-        if (random.nextInt(100) < 4) {
-          tilemap.setTileType(x, y, 2);
-        }
-
-        if (random.nextInt(100) < 4) {
-          tilemap.setTileType(x, y, 3);
-        }
       }
     }
+
+    tilemap.setTileType(5, 5, 2);
+    tilemap.setTileType(5, 7, 2);
   }
 
   public void registerSystem(ISystem system) {
