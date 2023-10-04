@@ -7,6 +7,7 @@ import net.focaenterprises.zenith.graphics.Sprite;
 import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
+import net.focaenterprises.zenith.world.RandomRoom;
 import net.focaenterprises.zenith.world.World;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 import net.focaenterprises.zenith.world.tilemap.TileRegistry;
@@ -34,8 +35,8 @@ public class Zenith implements IGameContext {
 
     this.loop = new Loop(this::update, this::render, 60);
     this.spritesheet = new SpriteSheet("");
+
     this.world = new World();
-    this.tilemap = new TileMap(50, 50, 16);
 
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
@@ -53,26 +54,24 @@ public class Zenith implements IGameContext {
       System.exit(1);
     }
 
-    world.initialize(tilemap);
+    world.initialize();
+
+    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
 
     TileRegistry.newTileType(spritesheet.getSprite("grass"), false);
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
     TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
-    world.registerSystem(new TileCollisionSystem(tilemap));
+    world.registerSystem(new TileCollisionSystem());
     world.registerSystem(new MovementSystem());
     world.registerSystem(new InputSystem(this));
-    world.registerSystem(new ControlSystem(Math.PI / 3));
+    world.registerSystem(new ControlSystem(Math.PI));
 
     world.registerSystem(new SpriteRenderingSystem(renderer));
     world.registerSystem(new SquareRenderingSystem(renderer));
-
-    world.createEntity("Godofredo")
-            .attach(new TransformComponent(16 * 5, 16 * 8 + 4, 16, 16))
-            .attach(new KeyBindingComponent(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT))
-            .attach(new ControlComponent())
-            .attach(new BodyComponent(true, 1, 1))
-            .attach(new SquareComponent(Color.blue, 1));
 
     window.show();
     loop.start();
@@ -80,6 +79,12 @@ public class Zenith implements IGameContext {
 
   private void update() {
     keyboard.poll();
+
+    if (keyboard.keyboardCheckPressed(KeyEvent.VK_D)) {
+      if(!world.nextRoom()) {
+        world.setRoom(0);
+      }
+    }
 
     world.update();
   }

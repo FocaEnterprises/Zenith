@@ -6,13 +6,6 @@ import net.focaenterprises.zenith.ecs.entity.IEntity;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 public class TileCollisionSystem extends AbstractSystem {
-
-    private TileMap tileMap;
-
-    public TileCollisionSystem(TileMap tileMap) {
-        this.tileMap = tileMap;
-    }
-
     @Override
     public void registerComponents() {
         registerComponent(TransformComponent.class);
@@ -34,7 +27,7 @@ public class TileCollisionSystem extends AbstractSystem {
 
         for (int i = 0; i < Math.abs(horizontalSpeed); i++) {
             int nextX = (int) (x + ((i + 1) * Math.signum(horizontalSpeed)));
-            if (tileMap.isColliding(nextX, (int) y, width, height)) {
+            if (world.getTilemap().isColliding(nextX, (int) y, width, height)) {
                 horizontalSpeed = (int) (i * Math.signum(horizontalSpeed));
                 break;
             }
@@ -42,7 +35,7 @@ public class TileCollisionSystem extends AbstractSystem {
 
         for (int i = 0; i < Math.abs(verticalSpeed); i++) {
             int nextY = (int) (y + ((i + 1) * Math.signum(verticalSpeed)));
-            if (tileMap.isColliding((int) (x + horizontalSpeed), nextY, width, height)) {
+            if (world.getTilemap().isColliding((int) (x + horizontalSpeed), nextY, width, height)) {
                 verticalSpeed = (int) (i * Math.signum(verticalSpeed));
                 break;
             }

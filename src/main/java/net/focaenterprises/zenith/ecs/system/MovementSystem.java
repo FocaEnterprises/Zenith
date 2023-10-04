@@ -16,8 +16,6 @@ public class MovementSystem extends AbstractSystem {
         TransformComponent transform = (TransformComponent) entity.getComponent(TransformComponent.class);
         BodyComponent body = (BodyComponent) entity.getComponent(BodyComponent.class);
 
-        System.out.println(body.horizontalSpeed);
-
         transform.x += body.horizontalSpeed;
         transform.y += body.verticalSpeed;
     }
