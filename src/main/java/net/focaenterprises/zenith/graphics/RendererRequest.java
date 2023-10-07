@@ -1,17 +1,17 @@
 package net.focaenterprises.zenith.graphics;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public abstract class RendererRequest {
-    private final int depth;
+  private final int depth;
 
-    public RendererRequest(int depth) {
-        this.depth = depth;
-    }
+  public RendererRequest(int depth) {
+    this.depth = depth;
+  }
 
-    abstract void run(Graphics g);
+  abstract void run(Graphics g);
 
-    public int getDepth() {
-        return depth;
-    }
+  public int getDepth() {
+    return depth;
+  }
 }

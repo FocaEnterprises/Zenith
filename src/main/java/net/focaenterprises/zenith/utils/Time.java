@@ -1,7 +1,8 @@
 package net.focaenterprises.zenith.utils;
 
 public class Time {
-  private Time() { }
+  private Time() {
+  }
 
   public static long millis() {
     return System.currentTimeMillis();

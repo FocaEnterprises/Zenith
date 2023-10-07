@@ -1,16 +1,13 @@
 package net.focaenterprises.zenith.world;
 
-import net.focaenterprises.zenith.ecs.component.IComponent;
-import net.focaenterprises.zenith.ecs.component.IRenderingComponent;
 import net.focaenterprises.zenith.ecs.entity.Entity;
 import net.focaenterprises.zenith.ecs.system.AbstractRenderingSystem;
 import net.focaenterprises.zenith.ecs.system.ISystem;
 import net.focaenterprises.zenith.graphics.Renderer;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
-import java.awt.Graphics;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class World {
   private RoomManager roomManager;

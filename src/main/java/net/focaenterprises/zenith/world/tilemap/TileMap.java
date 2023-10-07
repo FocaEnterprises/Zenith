@@ -2,7 +2,7 @@ package net.focaenterprises.zenith.world.tilemap;
 
 import net.focaenterprises.zenith.graphics.Renderer;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class TileMap {
   private final int[][] tileData;

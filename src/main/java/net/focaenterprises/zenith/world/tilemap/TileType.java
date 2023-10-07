@@ -3,8 +3,6 @@ package net.focaenterprises.zenith.world.tilemap;
 import net.focaenterprises.zenith.graphics.Renderer;
 import net.focaenterprises.zenith.graphics.Sprite;
 
-import java.awt.Graphics;
-
 public class TileType {
   private final Sprite sprite;
   private final boolean solid;

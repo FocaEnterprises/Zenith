@@ -1,9 +1,12 @@
 package net.focaenterprises.zenith.game;
 
-import net.focaenterprises.zenith.ecs.component.*;
-import net.focaenterprises.zenith.ecs.system.*;
+import net.focaenterprises.zenith.ecs.system.ControlSystem;
+import net.focaenterprises.zenith.ecs.system.InputSystem;
+import net.focaenterprises.zenith.ecs.system.MovementSystem;
+import net.focaenterprises.zenith.ecs.system.SpriteRenderingSystem;
+import net.focaenterprises.zenith.ecs.system.SquareRenderingSystem;
+import net.focaenterprises.zenith.ecs.system.TileCollisionSystem;
 import net.focaenterprises.zenith.graphics.Renderer;
-import net.focaenterprises.zenith.graphics.Sprite;
 import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
@@ -12,12 +15,7 @@ import net.focaenterprises.zenith.world.World;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.util.Random;
 
 public class Zenith implements IGameContext {
   private final Window window;
@@ -81,7 +79,7 @@ public class Zenith implements IGameContext {
     keyboard.poll();
 
     if (keyboard.keyboardCheckPressed(KeyEvent.VK_D)) {
-      if(!world.nextRoom()) {
+      if (!world.nextRoom()) {
         world.setRoom(0);
       }
     }

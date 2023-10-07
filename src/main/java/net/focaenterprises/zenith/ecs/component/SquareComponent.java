@@ -1,18 +1,18 @@
 package net.focaenterprises.zenith.ecs.component;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class SquareComponent implements IRenderingComponent {
-    public Color color;
-    private int depth;
+  public Color color;
+  private int depth;
 
-    public SquareComponent(Color color, int depth) {
-        this.color = color;
-        this.depth = depth;
-    }
+  public SquareComponent(Color color, int depth) {
+    this.color = color;
+    this.depth = depth;
+  }
 
-    @Override
-    public int getDepth() {
-        return depth;
-    }
+  @Override
+  public int getDepth() {
+    return depth;
+  }
 }

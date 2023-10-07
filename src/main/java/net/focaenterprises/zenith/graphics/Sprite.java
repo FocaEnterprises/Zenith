@@ -1,7 +1,6 @@
 package net.focaenterprises.zenith.graphics;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
