@@ -20,7 +20,7 @@ public class World {
 
   public void update() {
     for (ISystem system : systems) {
-      if (system instanceof AbstractRenderingSystem == false) {
+      if (!(system instanceof AbstractRenderingSystem)) {
         system.update();
       }
     }
@@ -73,7 +73,7 @@ public class World {
     roomManager.getCurrentRoom().getTileMap().render(renderer);
 
     for (ISystem system : systems) {
-      if (system instanceof AbstractRenderingSystem == true) {
+      if (system instanceof AbstractRenderingSystem) {
         system.update();
       }
     }
