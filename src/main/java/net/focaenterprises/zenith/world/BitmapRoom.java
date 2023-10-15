@@ -28,7 +28,6 @@ public class BitmapRoom extends Room {
     for(int x = 0; x < tileMap.getWidth(); x++) {
       for (int y = 0; y < tileMap.getHeight(); y++) {
         int type = getTileType(bitmap.getRGB(x, y));
-        System.out.println(type);
         tileMap.setTileType(x, y, type);
       }
     }
