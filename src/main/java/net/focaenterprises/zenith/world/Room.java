@@ -16,8 +16,8 @@ import java.util.List;
 
 public class Room {
 
-  private TileMap tileMap;
-  private List<Entity> entities;
+  private final TileMap tileMap;
+  private final List<Entity> entities;
 
   public Room(int width, int height, int tileSize, IGameContext context) {
     this.tileMap = new TileMap(width, height, tileSize, context);

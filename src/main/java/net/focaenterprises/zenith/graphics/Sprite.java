@@ -8,8 +8,8 @@ import java.util.Objects;
 public class Sprite {
   protected BufferedImage image;
 
-  int width;
-  int height;
+  protected int width;
+  protected int height;
 
   public void render(Renderer renderer) {
     render(renderer, 0, 0);

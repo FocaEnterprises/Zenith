@@ -13,7 +13,6 @@ import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.RandomRoom;
 import net.focaenterprises.zenith.world.World;
-import net.focaenterprises.zenith.world.tilemap.TileMap;
 import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 
 import java.awt.event.KeyEvent;
@@ -24,9 +23,8 @@ public class Zenith implements IGameContext {
   private final SpriteSheet spritesheet;
   private final Loop loop;
   private final World world;
-  private TileMap tilemap;
-  private Keyboard keyboard;
-  private Camera camera;
+  private final Keyboard keyboard;
+  private final Camera camera;
 
   public Zenith() {
     this.window = new Window(280, 180, 3);
@@ -56,10 +54,10 @@ public class Zenith implements IGameContext {
 
     world.initialize();
 
-    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
-    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
-    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
-    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
+    world.createRoom(new RandomRoom(40, 40, 16, this));
+    world.createRoom(new RandomRoom(40, 40, 16, this));
+    world.createRoom(new RandomRoom(40, 40, 16, this));
+    world.createRoom(new RandomRoom(40, 40, 16, this));
 
     TileRegistry.newTileType(spritesheet.getSprite("grass"), false);
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);

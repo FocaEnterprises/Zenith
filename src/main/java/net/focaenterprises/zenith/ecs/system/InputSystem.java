@@ -8,7 +8,7 @@ import net.focaenterprises.zenith.input.Keyboard;
 
 public class InputSystem extends AbstractSystem {
 
-  private Keyboard keyboard;
+  private final Keyboard keyboard;
 
   public InputSystem(Keyboard keyboard) {
     this.keyboard = keyboard;

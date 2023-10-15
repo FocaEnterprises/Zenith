@@ -3,7 +3,7 @@ package net.focaenterprises.zenith.game;
 import net.focaenterprises.zenith.utils.Time;
 
 public class Loop {
-  private Thread thread;
+  private final Thread thread;
   private final int maxFPS;
   private boolean isRunning;
   private final Runnable updateCallback;

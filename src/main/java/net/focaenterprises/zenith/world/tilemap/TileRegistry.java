@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TileRegistry {
-  private static Map<Integer, TileType> tileTypes = new HashMap<>();
+  private static final Map<Integer, TileType> tileTypes = new HashMap<>();
 
   public static void newTileType(Sprite sprite, boolean isSolid) {
     tileTypes.put(tileTypes.size(), new TileType(sprite, isSolid));

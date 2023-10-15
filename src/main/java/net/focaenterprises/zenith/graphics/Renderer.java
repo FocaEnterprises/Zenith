@@ -15,7 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Renderer {
-  public Window window;
+  private final Window window;
+
   private BufferStrategy bufferStrategy;
   private BufferedImage layer;
   private Graphics uiGraphics;

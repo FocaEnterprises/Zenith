@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomManager {
-  private List<Room> rooms;
+  private final List<Room> rooms;
   public int currentRoomIndex;
 
   public RoomManager() {
