@@ -16,7 +16,7 @@ public class BitmapRoom extends Room {
     try {
       image = ImageIO.read(getClass().getResource("/" + roomName + ".png"));
     } catch (IOException e) {
-      throw new IllegalArgumentException("Image does not exists");
+      throw new IllegalArgumentException("Image does not exists", e);
     }
 
     generate(image);
