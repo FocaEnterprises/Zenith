@@ -1,6 +1,7 @@
 package net.focaenterprises.zenith.game;
 
 import net.focaenterprises.zenith.graphics.Camera;
+import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.input.Keyboard;
 
 public interface IGameContext {
@@ -15,4 +16,6 @@ public interface IGameContext {
   Keyboard geKeyboard();
 
   Camera getCamera();
+
+  SpriteSheet getSpriteSheet();
 }

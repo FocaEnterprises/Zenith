@@ -36,7 +36,7 @@ public class TileMap {
         }
 
         if (tileType != null) {
-          tileType.render(r, x * tileSize - camera.getX(), y * tileSize - camera.getY());
+          tileType.render(r, x * tileSize - camera.getX(), y * tileSize - camera.getY(), context.getSpriteSheet());
         }
       }
     }

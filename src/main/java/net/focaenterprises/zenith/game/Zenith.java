@@ -43,10 +43,8 @@ public class Zenith implements IGameContext {
   }
 
   public void start() {
+    TileRegistry.TILE_TYPES.values().forEach(tile -> spritesheet.registerSprite(tile.getName()));
     spritesheet.registerSprite("player");
-    spritesheet.registerSprite("grass");
-    spritesheet.registerSprite("dirt");
-    spritesheet.registerSprite("stone");
 
     if (!spritesheet.loadSprites()) {
       System.out.println("Failed to load spritesheet, shutting down!");
@@ -59,10 +57,6 @@ public class Zenith implements IGameContext {
     world.createRoom(new RandomRoom(40, 40, 16, this));
     world.createRoom(new RandomRoom(40, 40, 16, this));
     world.createRoom(new RandomRoom(40, 40, 16, this));
-
-    TileRegistry.newTileType(spritesheet.getSprite("grass"), false);
-    TileRegistry.newTileType(spritesheet.getSprite("dirt"), false);
-    TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
     world.registerSystem(new InputSystem(this));
     world.registerSystem(new ControlSystem(Math.PI));
@@ -132,5 +126,10 @@ public class Zenith implements IGameContext {
   @Override
   public Camera getCamera() {
     return camera;
+  }
+
+  @Override
+  public SpriteSheet getSpriteSheet() {
+    return spritesheet;
   }
 }
