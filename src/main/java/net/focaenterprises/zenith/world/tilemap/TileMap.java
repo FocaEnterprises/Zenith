@@ -1,26 +1,33 @@
 package net.focaenterprises.zenith.world.tilemap;
 
+import net.focaenterprises.zenith.game.IGameContext;
+import net.focaenterprises.zenith.graphics.Camera;
 import net.focaenterprises.zenith.graphics.Renderer;
 
 import java.awt.Color;
 
 public class TileMap {
-  private final int[][] tileData;
+  private final IGameContext context;
   private final boolean[][] tileDebug;
+  private final int[][] tileData;
+
   private final int tileSize;
 
-  public TileMap(int width, int height, int tileSize) {
+  public TileMap(int width, int height, int tileSize, IGameContext context) {
     this.tileData = new int[width][height];
     this.tileDebug = new boolean[width][height];
     this.tileSize = tileSize;
+    this.context = context;
   }
 
   public void render(Renderer r) {
+    Camera camera = context.getCamera();
+
     for (int x = 0; x < tileData.length; x++) {
       for (int y = 0; y < tileData[x].length; y++) {
         TileType tileType = getTileType(x, y);
 
-        if (tileDebug[x][y] == true) {
+        if (tileDebug[x][y]) {
           r.setColor(Color.red);
           r.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
           tileDebug[x][y] = false;
@@ -29,7 +36,7 @@ public class TileMap {
         }
 
         if (tileType != null) {
-          tileType.render(r, x * tileSize, y * tileSize);
+          tileType.render(r, x * tileSize - (int) camera.getX(), y * tileSize - (int) camera.getY());
         }
       }
     }
@@ -81,5 +88,9 @@ public class TileMap {
 
   public int getHeight() {
     return tileData[0].length;
+  }
+
+  public int getTileSize() {
+    return tileSize;
   }
 }

@@ -1,5 +1,6 @@
 package net.focaenterprises.zenith.game;
 
+import net.focaenterprises.zenith.graphics.Camera;
 import net.focaenterprises.zenith.input.Keyboard;
 
 public interface IGameContext {
@@ -12,4 +13,6 @@ public interface IGameContext {
   int getWindowScale();
 
   Keyboard geKeyboard();
+
+  Camera getCamera();
 }

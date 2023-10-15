@@ -6,6 +6,7 @@ import net.focaenterprises.zenith.ecs.component.KeyBindingComponent;
 import net.focaenterprises.zenith.ecs.component.SquareComponent;
 import net.focaenterprises.zenith.ecs.component.TransformComponent;
 import net.focaenterprises.zenith.ecs.entity.Entity;
+import net.focaenterprises.zenith.game.IGameContext;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
 import java.awt.Color;
@@ -18,8 +19,8 @@ public class Room {
   private TileMap tileMap;
   private List<Entity> entities;
 
-  public Room(int width, int height, int tileSize) {
-    this.tileMap = new TileMap(width, height, tileSize);
+  public Room(int width, int height, int tileSize, IGameContext context) {
+    this.tileMap = new TileMap(width, height, tileSize, context);
     this.entities = new ArrayList<>();
 
     Entity entity = new Entity("Godofredo");

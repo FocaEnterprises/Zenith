@@ -3,6 +3,7 @@ package net.focaenterprises.zenith.world;
 import net.focaenterprises.zenith.ecs.entity.Entity;
 import net.focaenterprises.zenith.ecs.system.AbstractRenderingSystem;
 import net.focaenterprises.zenith.ecs.system.ISystem;
+import net.focaenterprises.zenith.game.IGameContext;
 import net.focaenterprises.zenith.graphics.Renderer;
 import net.focaenterprises.zenith.world.tilemap.TileMap;
 
@@ -10,8 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
+  protected final IGameContext context;
+
   private RoomManager roomManager;
   private List<ISystem> systems;
+
+  public World(IGameContext context) {
+    this.context = context;
+  }
 
   public void initialize() {
     this.roomManager = new RoomManager();
@@ -46,7 +53,7 @@ public class World {
   }
 
   public Room createRoom(int width, int height, int tileSize) {
-    return createRoom(new Room(width, height, tileSize));
+    return createRoom(new Room(width, height, tileSize, context));
   }
 
   public boolean nextRoom() {
@@ -81,5 +88,9 @@ public class World {
 
   public TileMap getTilemap() {
     return roomManager.getCurrentRoom().getTileMap();
+  }
+
+  public IGameContext getContext() {
+    return context;
   }
 }

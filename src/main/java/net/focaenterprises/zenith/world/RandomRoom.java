@@ -1,10 +1,12 @@
 package net.focaenterprises.zenith.world;
 
+import net.focaenterprises.zenith.game.IGameContext;
+
 import java.util.Random;
 
 public class RandomRoom extends Room {
-  public RandomRoom(int width, int height, int tileSize) {
-    super(width, height, tileSize);
+  public RandomRoom(int width, int height, int tileSize, IGameContext context) {
+    super(width, height, tileSize, context);
 
     Random random = new Random();
     for (int x = 0; x < this.getTileMap().getWidth(); x++) {

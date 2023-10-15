@@ -6,6 +6,7 @@ import net.focaenterprises.zenith.ecs.system.MovementSystem;
 import net.focaenterprises.zenith.ecs.system.SpriteRenderingSystem;
 import net.focaenterprises.zenith.ecs.system.SquareRenderingSystem;
 import net.focaenterprises.zenith.ecs.system.TileCollisionSystem;
+import net.focaenterprises.zenith.graphics.Camera;
 import net.focaenterprises.zenith.graphics.Renderer;
 import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
@@ -25,6 +26,7 @@ public class Zenith implements IGameContext {
   private final World world;
   private TileMap tilemap;
   private Keyboard keyboard;
+  private Camera camera;
 
   public Zenith() {
     this.window = new Window(280, 180, 3);
@@ -33,12 +35,12 @@ public class Zenith implements IGameContext {
 
     this.loop = new Loop(this::update, this::render, 60);
     this.spritesheet = new SpriteSheet("");
+    this.camera = new Camera();
 
-    this.world = new World();
+    this.world = new World(this);
 
     this.keyboard = new Keyboard();
     this.window.addKeyListener(keyboard);
-
   }
 
   public void start() {
@@ -54,10 +56,10 @@ public class Zenith implements IGameContext {
 
     world.initialize();
 
-    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
-    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
-    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
-    this.tilemap = world.createRoom(new RandomRoom(16, 16, 16)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
+    this.tilemap = world.createRoom(new RandomRoom(40, 40, 16, this)).getTileMap();
 
     TileRegistry.newTileType(spritesheet.getSprite("grass"), false);
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
@@ -126,5 +128,10 @@ public class Zenith implements IGameContext {
 
   public World getWorld() {
     return world;
+  }
+
+  @Override
+  public Camera getCamera() {
+    return camera;
   }
 }
