@@ -63,10 +63,10 @@ public class Zenith implements IGameContext {
     TileRegistry.newTileType(spritesheet.getSprite("dirt"), true);
     TileRegistry.newTileType(spritesheet.getSprite("stone"), true);
 
-    world.registerSystem(new TileCollisionSystem());
-    world.registerSystem(new MovementSystem());
     world.registerSystem(new InputSystem(this));
     world.registerSystem(new ControlSystem(Math.PI));
+    world.registerSystem(new TileCollisionSystem());
+    world.registerSystem(new MovementSystem());
 
     world.registerSystem(new SpriteRenderingSystem(renderer));
     world.registerSystem(new SquareRenderingSystem(renderer));
