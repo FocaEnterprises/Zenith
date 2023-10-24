@@ -56,8 +56,15 @@ public class World {
     return createRoom(new Room(width, height, tileSize, context));
   }
 
-  public boolean nextRoom() {
-    return roomManager.nextRoom();
+  public void nextRoom() {
+    Entity player = context.getPlayer();
+    getEntities().remove(player);
+
+    if (!roomManager.nextRoom()) {
+      setRoom(0);
+    }
+
+    getEntities().add(player);
   }
 
   public void setRoom(int room) {

@@ -28,9 +28,7 @@ public abstract class AbstractSystem implements ISystem {
   }
 
   public void update() {
-    for (int i = 0; i < world.getEntities().size(); i++) {
-      Entity entity = world.getEntities().get(i);
-
+    for (Entity entity : world.getEntities()) {
       if (entity.getAllComponents().containsAll(components)) {
         process(entity);
       }

@@ -1,5 +1,11 @@
 package net.focaenterprises.zenith.game;
 
+import net.focaenterprises.zenith.ecs.component.BodyComponent;
+import net.focaenterprises.zenith.ecs.component.ControlComponent;
+import net.focaenterprises.zenith.ecs.component.KeyBindingComponent;
+import net.focaenterprises.zenith.ecs.component.SquareComponent;
+import net.focaenterprises.zenith.ecs.component.TransformComponent;
+import net.focaenterprises.zenith.ecs.entity.Entity;
 import net.focaenterprises.zenith.ecs.system.ControlSystem;
 import net.focaenterprises.zenith.ecs.system.InputSystem;
 import net.focaenterprises.zenith.ecs.system.MovementSystem;
@@ -16,6 +22,7 @@ import net.focaenterprises.zenith.world.RandomRoom;
 import net.focaenterprises.zenith.world.World;
 import net.focaenterprises.zenith.world.tilemap.TileRegistry;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 public class Zenith implements IGameContext {
@@ -26,6 +33,8 @@ public class Zenith implements IGameContext {
   private final World world;
   private final Keyboard keyboard;
   private final Camera camera;
+
+  private Entity player;
 
   public Zenith() {
     this.window = new Window(280, 180, 3);
@@ -66,6 +75,15 @@ public class Zenith implements IGameContext {
     world.registerSystem(new SpriteRenderingSystem(renderer));
     world.registerSystem(new SquareRenderingSystem(renderer));
 
+    player = world.createEntity("Godofredo");
+
+    player
+      .attach(new TransformComponent(16 * 5, 16 * 8, 16, 16))
+      .attach(new KeyBindingComponent(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT))
+      .attach(new ControlComponent())
+      .attach(new BodyComponent(true, 1, 1))
+      .attach(new SquareComponent(Color.blue, 1));
+
     window.show();
     loop.start();
   }
@@ -74,9 +92,7 @@ public class Zenith implements IGameContext {
     keyboard.poll();
 
     if (keyboard.keyboardCheckPressed(KeyEvent.VK_D)) {
-      if (!world.nextRoom()) {
-        world.setRoom(0);
-      }
+      world.nextRoom();
     }
 
     world.update();
@@ -131,5 +147,10 @@ public class Zenith implements IGameContext {
   @Override
   public SpriteSheet getSpriteSheet() {
     return spritesheet;
+  }
+
+  @Override
+  public Entity getPlayer() {
+    return player;
   }
 }
