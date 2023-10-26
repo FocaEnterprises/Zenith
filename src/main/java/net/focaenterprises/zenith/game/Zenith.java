@@ -18,6 +18,7 @@ import net.focaenterprises.zenith.graphics.SpriteSheet;
 import net.focaenterprises.zenith.graphics.Window;
 import net.focaenterprises.zenith.input.Keyboard;
 import net.focaenterprises.zenith.world.BitmapRoom;
+import net.focaenterprises.zenith.world.RandomPathRoom;
 import net.focaenterprises.zenith.world.RandomRoom;
 import net.focaenterprises.zenith.world.World;
 import net.focaenterprises.zenith.world.tilemap.TileRegistry;
@@ -64,7 +65,7 @@ public class Zenith implements IGameContext {
 
     world.createRoom(new BitmapRoom(60, 60, 16, this, "city"));
     world.createRoom(new RandomRoom(40, 40, 16, this));
-    world.createRoom(new RandomRoom(40, 40, 16, this));
+    world.createRoom(new RandomPathRoom(40, 40, 16, this, 250));
     world.createRoom(new RandomRoom(40, 40, 16, this));
 
     world.registerSystem(new InputSystem(this));
