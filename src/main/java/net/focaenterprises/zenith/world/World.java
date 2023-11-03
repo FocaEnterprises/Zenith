@@ -65,6 +65,7 @@ public class World {
     }
 
     getEntities().add(player);
+    roomManager.getCurrentRoom().setPositionFixed(player);
   }
 
   public void setRoom(int room) {
