@@ -43,8 +43,10 @@ public class Room {
       transform.y++;
 
       if(System.currentTimeMillis() - start > 1000) {
+        System.out.printf("Failed to move entity %s(%s, %s) to a safe tile.%n", entity.getName(), x, y);
         transform.x = x;
         transform.y = y;
+        break;
       }
 
       if(!tileMap.isColliding((int) transform.x, (int) transform.y, (int) transform.width, (int) transform.height)) break;
