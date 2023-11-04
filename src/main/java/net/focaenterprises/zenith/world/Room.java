@@ -36,6 +36,11 @@ public class Room {
 
     double x = transform.x;
     double y = transform.y;
+    double width = transform.width;
+    double height = transform.height;
+
+    if(!tileMap.isColliding((int) x, (int) y, (int) width, (int) height)) return;
+
     long start = System.currentTimeMillis();
 
     while(true) {
@@ -49,7 +54,7 @@ public class Room {
         break;
       }
 
-      if(!tileMap.isColliding((int) transform.x, (int) transform.y, (int) transform.width, (int) transform.height)) break;
+      if(!tileMap.isColliding((int) transform.x, (int) transform.y, (int) width, (int) height)) break;
     }
   }
 }
